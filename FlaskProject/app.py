@@ -38,7 +38,7 @@ def main():  # put application's code here
 
     return 'Hello World'
 
-
+def mainAlgo
 
 
 if __name__ == '__main__':

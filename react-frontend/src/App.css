@@ -9,7 +9,7 @@ html {
   background: var(--white);
 }
 
-.roundedSquare {
+.rounded-square {
   background-color: green;
   display: flex;
   justify-content: center;
@@ -19,8 +19,26 @@ html {
   border-radius: 4rem
 }
 
-
-@keyframes App-logo-spin {
-  from { transform: rotate(0deg); }
-  to { transform: rotate(360deg); }
+.top-bar {
+  
 }
+
+
+
+.main-content {
+  /* Will be to the right and uses aflex horizontal flex box */
+  display: flex;
+  color: green 
+
+}
+
+
+
+
+
+
+
+
+
+
+

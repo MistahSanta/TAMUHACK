@@ -1,0 +1,26 @@
+:root {
+  --white: #FBFAF5;
+  --yellowGreen: #BFD857;
+  --Green: #00A657;
+  --gdsaf: #004B35
+}
+
+html {
+  background: var(--white);
+}
+
+.roundedSquare {
+  background-color: green;
+  display: flex;
+  justify-content: center;
+  width: 80%;
+  height: 90%;
+
+  border-radius: 4rem
+}
+
+
+@keyframes App-logo-spin {
+  from { transform: rotate(0deg); }
+  to { transform: rotate(360deg); }
+}

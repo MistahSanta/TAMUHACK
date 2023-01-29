@@ -3,6 +3,8 @@ import os
 from Algorithm import OfficeSolver
 from flask import Flask, render_template, abort
 import decimal
+import numpy as np
+import pandas as 
 
 app = Flask(__name__)
 
@@ -44,11 +46,9 @@ def setting(site):
         return render_template('setting.html', sites="Setting")
     elif (site == "Preferences"):
         print('preference page is loaded')
-        return render_template('preference.html', sites="Preferences")
-    elif(site == "test"):
-        return render_template('TableTest.html', sites="test")
+        return render_template('preference.html', sites="Preferences", )
     else:
         return abort(404)
 
 if __name__ == '__main__':
-    app.run(debug=True, port=os.environ["PORT"] if "PORT" in os.environ else 5000)
+    app.run(debug=True, port=os.environ["PORT"] if "PORT" in os.environ else 8000)

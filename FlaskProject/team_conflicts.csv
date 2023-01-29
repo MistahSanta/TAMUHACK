@@ -1,6 +1,6 @@
 x,team1,team2,team3,team4,team5,team6,team7,team8,team9,team10,team11
 team1,null,1,0,1,-1,1,-1,0,-1,0,1
-team2,1,null,1,-1,1,0,0,-1,-1,-1
+team2,1,null,1,-1,1,0,0,-1,-1,-1,1
 team3,1,1,null,-1,-1,-1,0,-1,-1,-1,1
 team4,0,-1,0,null,-1,-1,-1,-1,-1,1,-1
 team5,1,1,1,1,null,-1,-1,-1,0,0,0

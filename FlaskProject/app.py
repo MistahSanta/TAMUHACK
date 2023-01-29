@@ -45,6 +45,8 @@ def setting(site):
     elif (site == "Preferences"):
         print('preference page is loaded')
         return render_template('preference.html', sites="Preferences")
+    elif(site == "test"):
+        return render_template('TableTest.html', sites="test")
     else:
         return abort(404)
 

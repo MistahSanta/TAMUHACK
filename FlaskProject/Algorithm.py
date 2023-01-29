@@ -3,7 +3,7 @@ from collections import Counter
 import numpy as np
 import pandas as pd
 from typing import List
-import math
+from math import isnan
 from functools import reduce
 
 
@@ -135,7 +135,7 @@ class OfficeSolver:
         for floor in self.floors:
             preferred = [0] * len(self.teams)
             for compareTeam in range(floor.teamOccupied.size):
-                if math.isnan(team.preferences[compareTeam]):
+                if isnan(team.preferences[compareTeam]):
                     continue
                 preferred[floor.index] += 1 if team.preferences[compareTeam] == 1 else 0
             f = self.floors[preferred.index(max(preferred))]
@@ -153,7 +153,7 @@ class OfficeSolver:
         for floor in self.floors:
             tolerated = [0] * len(self.teams)
             for compareTeam in range(floor.teamOccupied.size):
-                if math.isnan(team.preferences[compareTeam]):
+                if isnan(team.preferences[compareTeam]):
                     continue
                 tolerated[floor.index] += 1 if team.preferences[compareTeam] == 0 else 0
             f = self.floors[tolerated.index(max(tolerated))]
@@ -169,7 +169,7 @@ class OfficeSolver:
 
             skip_this_floor = False
             for teamOnFloor in range(floor.teamOccupied.size):
-                if math.isnan(team.preferences[teamOnFloor]) or team.preferences[teamOnFloor] == -1:
+                if isnan(team.preferences[teamOnFloor]) or team.preferences[teamOnFloor] == -1:
                     skip_this_floor = True
                 if skip_this_floor:
                     break
@@ -205,7 +205,7 @@ class OfficeSolver:
                 maxTol, tolerated = 0, [0] * len(self.teams)
                 minNo, noWay = 0, [0] * len(self.teams)
                 for compareTeam in range(floor.teamOccupied.size):
-                    if math.isnan(team.preferences[compareTeam]):
+                    if isnan(team.preferences[compareTeam]):
                         continue
                     preferred[floor.index] += 1 if team.preferences[compareTeam] == 1 else 0
                     tolerated[floor.index] += 1 if team.preferences[compareTeam] == 0 else 0

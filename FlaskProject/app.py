@@ -1,5 +1,8 @@
-import Algorithm
-from flask import Flask, render_template
+import os
+
+from Algorithm import OfficeSolver
+from flask import Flask, render_template, abort
+import decimal
 
 app = Flask(__name__)
 
@@ -13,6 +16,7 @@ exampleTeamArray = [
 exampleFloorOccupied = [
     .25, .10, 1, .93
 ]
+
 
 @app.route('/')
 def main():  # put application's code here
@@ -44,12 +48,5 @@ def setting(site):
     else:
         return abort(404)
 
-
-
-
-
-
-
-
 if __name__ == '__main__':
-    app.run(debug=True)
+    app.run(debug=True, port=os.environ["PORT"] if "PORT" in os.environ else 5000)

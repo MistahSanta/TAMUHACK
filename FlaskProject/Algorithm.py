@@ -18,6 +18,7 @@ class Floor:
     def __init__(self, index: int, capacity: int, numberOfTeams: int):
         self.index = index
         self.capacity = capacity
+        self.numberOfTeams = numberOfTeams
         self.teamOccupied = np.zeros(numberOfTeams, dtype=bool)
         self.teamOccupied.fill(False)
 
@@ -32,6 +33,16 @@ class Team:
         self.index = index
         self.strength = strength
         self.preferences = preferences
+        self.likePref = []
+        self.dislikePref = []
+
+        for i in range(self.preferences.shape[0]):
+            if self.preferences[i] == 1:
+                self.likePref.append(i + 1)
+            elif self.preferences[i] == -1:
+                self.dislikePref.append(i + 1)
+        print(self.likePref)
+        print(self.dislikePref)
 
     def __str__(self):
         return f"Team {self.index} - Size: {self.strength}, Preferences: {self.preferences}"
@@ -74,7 +85,7 @@ class OfficeSolver:
         # return sortedTeam.astype(int)
         return arr
 
-    def returnFloorSize(self, floorNumber):
+    def returnFloorSize(self, floorNumber: int):
         total = 0
         floor = self.getFloorObj(floorNumber)
         for i in range(floor.teamOccupied.size):

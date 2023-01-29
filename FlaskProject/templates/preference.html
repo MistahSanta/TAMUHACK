@@ -20,14 +20,23 @@
 
 
                         {%for i in range(0,numTeams)%}
-                        <tr>
-                          <th scope="row">Team {{ i+1 }}</th>
-                          <td contenteditable>{{ teamStrength[i][0]}}</td>
+                            <tr>
+                              <th scope="row">Team {{ i+1 }}</th>
+                              <td contenteditable>{{ teamStrength[i][0]}}</td>
+                                <td contenteditable>TBA</td>
+                                <td contenteditable>TBA</td>
+                            </tr>
+                        {%endfor%}
+                        <div class="d-grid gap-2">
 
-                        </tr>
-                  {%endfor%}
+                        </div>
                       </tbody>
-</table>
+                    </table>
+                    <div class="d-grid gap-2 d-md-flex justify-content-md-end">
+                        <button class="btn btn-primary me-md-2" type="button">Add Team</button>
+                        <button class="btn btn-success" type="button">SAVE</button>
+                    </div>
+
                 </div>
             </div>
         </div>

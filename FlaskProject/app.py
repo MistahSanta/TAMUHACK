@@ -47,7 +47,6 @@ def setting(site):
     elif (site == "Preferences"):
         print('preference page is loaded')
         teamStrength = np.transpose(pd.read_csv("strength.csv", header=None))
-        print(teamStrength.shape)
         return render_template('preference.html', sites="Preferences", teamStrength = teamStrength, numTeams = teamStrength.size)
     else:
         return abort(404)

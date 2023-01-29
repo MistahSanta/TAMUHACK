@@ -1,4 +1,71 @@
 {% extends 'base.html' %}
 {% block content %}
-    <p>Hello World!</p>
+
+
+<div class="mx-auto grid gap-3">
+    <div class="container text-center mb-3 mt-3">
+        <div class="row row-cols-1 row-cols-lg-5 g-4 g-lg-3">
+            <div class="card overview" style="width: 75vw; margin-left: 5px;">
+                <div class="card-body">
+                <h5 class="card-title ">Overview</h5>
+                  <table class="table">
+                  <thead>
+                    <tr>
+                      <th scope="col">Team</th>
+                      <th scope="col">Team Size</th>
+                      <th scope="col">Location</th>
+                      <th scope="col">Preferred Team</th>
+                        <th scope="col">Disliked Team</th>
+                    </tr>
+                  <tbody>
+                  {%for i in range(0,numTeams)%}
+                        <tr>
+                          <th scope="row">Team {{ i+1 }}</th>
+                          <td>{{ teamOverview[i][0]}} members</td>
+                          <td>{{ teamOverview[i][1]}}</td>
+                          <td>{{ teamOverview[i][2]}}</td>
+                         <td>{{ teamOverview[i][3]}}</td>
+                        </tr>
+                  {%endfor%}
+
+                  </tbody>
+                  </thead>
+                  </table>
+
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="container text-center">
+        <div class="row row-cols-1 row-cols-lg-5 g-4 g-lg-3">
+            <div class="card" style="width: 75vw;">
+                <div class="card-body">
+                <h5 class="card-title">Floor Occupancy</h5>
+                    <ul class="list-group">
+                    {%for i in range(0,numFloors)%}
+                        <li class="d-flex pb-2">
+                            <div class="my-auto me-3">Floor {{ i+1 }}</div>
+
+                            <div class="progress my-auto" style="width: 60vw" role="progressbar" aria-label="Example with label" aria-valuenow="{{ floorOccupied[i][0] * 100  }}" aria-valuemin="0" aria-valuemax="100">
+                                  <div class="progress-bar" style="width: {{ floorOccupied[i][0] * 100}}%">{{ floorOccupied[i][0] * 100}}% ({{ floorOccupied[i][1] }}/{{ floorOccupied[i][2] }})</div>
+                            </div>
+
+
+                        </li>
+
+
+                    {%endfor%}
+                    </ul>
+
+
+                </div>
+            </div>
+        </div>
+    </div>
+
+
+</div>
+
+
+
 {% endblock %}

@@ -1,0 +1,184 @@
+{% extends 'base.html' %}
+{% block content %}
+
+    <div class="mx-auto grid gap-3">
+    <div class="container text-center mb-3 mt-3">
+        <div class="row row-cols-1 row-cols-lg-5 g-4 g-lg-3">
+            <div class="card overview" style="width: 75vw;">
+                <div class="card-body">
+                <h5 class="card-title ">Teams</h5>
+                    <script src="https://unpkg.com/gridjs/dist/gridjs.umd.js"></script>
+    <script>
+      const tableDiv = document.getElementById('table');
+
+      const updateUrl = (prev, query) => {
+        return prev + (prev.indexOf('?') >= 0 ? '&' : '?') + new URLSearchParams(query).toString();
+      };
+
+      const editableCellAttributes = (data, row, col) => {
+          if (row) {
+            return {contentEditable: 'true', 'data-element-id': row.cells[0].data};
+          }
+          else {
+            return {};
+          }
+      };
+
+      new gridjs.Grid({
+        columns: [
+          { id: 'id', 'hidden': true },
+          { id: 'name', name: 'Name', 'attributes': editableCellAttributes },
+          { id: 'age', name: 'Age' },
+          { id: 'address', name: 'Address', sort: false, 'attributes': editableCellAttributes },
+          { id: 'phone', name: 'Phone Number', sort: false },
+          { id: 'email', name: 'Email' },
+        ],
+        server: {
+          url: '/api/data',
+          then: results => results.data,
+          total: results => results.total,
+        },
+        search: {
+          enabled: true,
+          server: {
+            url: (prev, search) => {
+              return updateUrl(prev, {search});
+            },
+          },
+        },
+        sort: {
+          enabled: true,
+          multiColumn: true,
+          server: {
+            url: (prev, columns) => {
+              const columnIds = ['id', 'name', 'age', 'address', 'phone', 'email'];
+              const sort = columns.map(col => (col.direction === 1 ? '+' : '-') + columnIds[col.index]);
+              return updateUrl(prev, {sort});
+            },
+          },
+        },
+        pagination: {
+          enabled: true,
+          server: {
+            url: (prev, page, limit) => {
+              return updateUrl(prev, {start: page * limit, length: limit});
+            },
+          },
+        },
+      }).render(tableDiv);
+
+      let savedValue;
+
+      tableDiv.addEventListener('focusin', ev => {
+        if (ev.target.tagName === 'TD') {
+          savedValue = ev.target.textContent;
+        }
+      });
+
+      tableDiv.addEventListener('focusout', ev => {
+        if (ev.target.tagName === 'TD') {
+          if (savedValue !== ev.target.textContent) {
+            fetch('/api/data', {
+              method: 'POST',
+              headers: {'Content-Type': 'application/json'},
+              body: JSON.stringify({
+                id: ev.target.dataset.elementId,
+                [ev.target.dataset.columnId]: ev.target.textContent
+              }),
+            });
+          }
+          savedValue = undefined;
+        }
+      });
+
+      tableDiv.addEventListener('keydown', ev => {
+        if (ev.target.tagName === 'TD') {
+          if (ev.key === 'Escape') {
+            ev.target.textContent = savedValue;
+            ev.target.blur();
+          }
+          else if (ev.key === 'Enter') {
+            ev.preventDefault();
+            ev.target.blur();
+          }
+        }
+      });
+    </script>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="container text-center mb-3 mt-3">
+        <div class="row row-cols-1 row-cols-lg-1 g-1 g-lg-1">
+            <div class="card overview" style="width: 75vw;">
+                <div class="card-body">
+                <h5 class="card-title ">Floors</h5>
+
+                </div>
+            </div>
+        </div>
+    </div>
+
+
+
+        <!-- This is the form sheet -->
+<!DOCTYPE html>
+<html>
+<head>
+	<title>Save Web Form Data to Spreadsheets</title>
+	<script
+		src="https://code.jquery.com/jquery-3.4.1.js"
+		integrity="sha256-WpOohJOqMqqyKL9FccASB9O0KwACQJpFTUBLTYOVvVU="
+		crossorigin="anonymous"></script>
+	<script>
+		function SubForm (){
+			$.ajax({
+				url:"https://api.apispreadsheets.com/data/22FlSuntZk9i2GdJ/",
+				type:"post",
+				data:$("#myForm").serializeArray(),
+				success: function(){
+					alert("Form Data Submitted :)")
+				},
+				error: function(){
+					alert("There was an error :(")
+				}
+			});
+		}
+
+        function addTeam() {
+            $.ajax({
+				url:"https://api.apispreadsheets.com/data/22FlSuntZk9i2GdJ/",
+				type:"post",
+				data:$("#myForm").serializeArray(),
+				success: function(){
+					alert("Form Data Submitted :)")
+				},
+				error: function(){
+					alert("There was an error :(")
+				}
+			});
+        }
+	</script>
+</head>
+
+<body>
+	<form id="myForm">
+		<label>team1</label>
+		<input name="team1" />
+		<br/>
+	</form>
+
+	<button onclick='SubForm()'>Submit</button>
+    <form id="teamRequest">
+
+    </form>
+    <button onClick="addTeam()">Add Team</button>
+
+</body>
+</html>
+
+    </div>
+<!-- Here -->
+
+
+{% endblock %}

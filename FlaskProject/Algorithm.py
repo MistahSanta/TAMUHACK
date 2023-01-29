@@ -24,7 +24,7 @@ class Floor:
     def __str__(self):
         return f"Floor {self.index} - Capacity: {self.capacity}, Occupied: {self.teamOccupied}"
 
-    def Occupying(self, team: int):
+    def is_occupying(self, team: int):
         self.teamOccupied[team - 1] = True
 
 class Team:
@@ -94,36 +94,42 @@ class OfficeSolver:
 
     def solve(self):
         sorted = self.sortByStrength()
-        print(sorted)
+        # print(f"huidjshifhsg {sorted[0].strength} {type(sorted[0].strength)}",)
+        # print(*sorted)
+        # print(*self.floors)
         for team in sorted:
             for floor in self.floors:
-                """
-                This is a list of 3-tuples. 
-                There is one tuple for each floor, where:
-                    element 1 is the number of preferred teams for `team` on floor `floor`
-                    element 2 is the number of tolerated teams for `team` on floor `floor`
-                    element 3 is the number of no way teams for `team` on floor `floor`
-                """
-                preferred = []
-                tolerated = []
-                noWay = []
+                maxPref = 0
+                preferred = [0] * len(self.teams)
+                maxTol, tolerated = 0, [0] * len(self.teams)
+                minNo, noWay = 0, [0] * len(self.teams)
                 for compareTeam in range(floor.teamOccupied.size):
-                    (preferred if team.preferences[compareTeam] == 1
-                     else tolerated if team.preferences[compareTeam] == 0
-                    else noWay).append(compareTeam)
-                mostPreferredFloor = preferred.index(max(preferred))
-                mostToleratedFloor = tolerated.index(max(tolerated))
-                mostNoWayFloor = noWay.index(min(noWay))
-            # for each team
-            #bestPreferredFloor =
-            #find room with most from prefered list
+                    if math.isnan(team.preferences[compareTeam]): continue
+                    preferred[floor.index] += 1 if team.preferences[compareTeam] == 1 else 0
+                    tolerated[floor.index] += 1 if team.preferences[compareTeam] == 0 else 0
+                    noWay[floor.index] += 1 if team.preferences[compareTeam] == -1 else 0
 
-            #find room with most from tolerated list
+            maxPref = max(preferred)
+            maxTol = max(tolerated)
+            minNo = min(noWay)
 
-            #find room with least form no way
+            if preferred.count(maxPref) == 1 and self.get_occupied_percentage(preferred.index(maxPref)) >= 0.25:
+                self.floors[preferred.index(maxPref)].teamOccupied[team] = True
+            elif not tolerated.count(maxTol) == 1 and self.get_occupied_percentage(preferred.index(maxPref)) >= 0.25:
+                self.floors[preferred.index(maxTol)].teamOccupied[team] = True
+            elif not noWay.count(minNo) == 1 and self.get_occupied_percentage(preferred.index(maxPref)) >= 0.25:
+                self.floors[preferred.index(minNo)].teamOccupied[team] = True
+            else:
+                #allocate team to floor with minimum number of teams
+                # print(f'the thing {type(self.floors.teams)}')
+                self.floors
+                reduce(lambda arr, floor: arr.append(floor.teamOccupied), [], self.floors)
+                # floor_with_min_teams = self.floors.index(min(self.floors.teams.numberOfTeams))
+                floor_with_min_teams = reduce(lambda acc, curr: acc if Counter(curr.teamOccupied)[True] < Counter(acc.teamOccupied)[True] else curr, self.floors)
+                self.floors[floor_with_min_teams.index].teamOccupied[team.index] = True
 
-            #non of these work then end the loop and done
-        pass
+    def get_occupied_percentage(self, team: int):
+        return self.returnFloorSize(team) / self.getFloorObj(team).capacity
 
 
 solver = OfficeSolver()

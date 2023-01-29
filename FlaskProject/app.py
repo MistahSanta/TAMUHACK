@@ -4,7 +4,7 @@ from Algorithm import OfficeSolver
 from flask import Flask, render_template, abort
 import decimal
 import numpy as np
-import pandas as 
+import pandas as pd
 
 app = Flask(__name__)
 
@@ -46,7 +46,9 @@ def setting(site):
         return render_template('setting.html', sites="Setting")
     elif (site == "Preferences"):
         print('preference page is loaded')
-        return render_template('preference.html', sites="Preferences", )
+        teamStrength = np.transpose(pd.read_csv("strength.csv", header=None))
+        print(teamStrength.shape)
+        return render_template('preference.html', sites="Preferences", teamStrength = teamStrength, numTeams = teamStrength.size)
     else:
         return abort(404)
 

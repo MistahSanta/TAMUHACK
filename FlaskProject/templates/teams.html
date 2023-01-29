@@ -19,14 +19,14 @@
                     </tr>
                   <tbody>
                   {%for i in range(0,numTeams)%}
-                        <tr>
-                          <th scope="row">Team {{ i+1 }}</th>
-                          <td>{{ teamOverview[i][0]}} members</td>
-                          <td>{{ teamOverview[i][1]}}</td>
-                          <td>{{ teamOverview[i][2]}}</td>
-                         <td>{{ teamOverview[i][3]}}</td>
-                        </tr>
-                  {%endfor%}
+                            <tr>
+                              <th scope="row">Team {{ i+1 }}</th>
+                              <td>{{ teamOverview[i][0]}} members</td>
+                              <td>{{ teamOverview[i][1]}}</td>
+                              <td>{{ teamOverview[i][2]}}</td>
+                             <td>{{ teamOverview[i][3]}}</td>
+                            </tr>
+                        {%endfor%}
 
                   </tbody>
                   </thead>
